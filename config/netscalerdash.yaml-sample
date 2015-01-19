@@ -1,0 +1,6 @@
+:verify_ssl: false
+:nitro_username: foo
+:nitro_password: bar
+:netscalers:
+  - netscaler01
+  - netscaler02

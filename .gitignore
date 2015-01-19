@@ -34,3 +34,7 @@ build/
 .rvmrc
 
 .idea
+
+#Application specific ignores
+config/netscalerdash.yaml
+/log/
