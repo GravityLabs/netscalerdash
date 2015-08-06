@@ -1,0 +1,52 @@
+<h1>Netscalers</h1>
+<% @ns.keys.each do |ns| %>
+<h2><%= ns %></h2>
+  <table class="table table-bordered table-rounded table-condensed table-hover">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Ipaddress</th>
+      <th>Port</th>
+      <th>Type</th>
+      <th>Resp/s</th>
+      <th>Req/s</th>
+      <th>Client Conns</th>
+      <th>Server Conns</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% label = {'UP' => 'success', 'DOWN' => 'danger', 'OUTOFSERVICE' => 'default'} %>
+      <% @ns[ns]['cs'].each do |cs| %>
+      <tr>
+        <td>
+          <a href="/ns/<%= "#{ns}/cs/#{cs['name']}"%>"><%= cs['name'] %></a>
+          <span class="label label-<%= label[cs['state']] %>" style="float:right; text-decoration:blink"><%= cs['state'] %></span>
+        </td>
+        <td><%= cs['primaryipaddress'] %></td>
+        <td><%= cs['primaryport'] %></td>
+        <td><%= cs['type'] %></td>
+        <td><%= cs['responsesrate'] %></td>
+        <td><%= cs['requestsrate'] %></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <% end %>
+      <% @ns[ns]['lb'].each do |lb| %>
+      <tr>
+        <td>
+          <a href="/ns/<%= "#{ns}/lb/#{lb['name']}"%>"><%= lb['name'] %></a>
+          <span class="label label-<%= label[lb['state']] %>" style="float:right; text-decoration:blink"><%= lb['state'] %></span>
+        </td>
+        <td><%= lb['primaryipaddress'] %></td>
+        <td><%= lb['primaryport'] %></td>
+        <td><%= lb['type'] %></td>
+        <td><%= lb['responsesrate'] %></td>
+        <td><%= lb['requestsrate'] %></td>
+        <td><%= lb['curclntconnections'] %></td>
+        <td><%= lb['cursrvrconnections'] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>

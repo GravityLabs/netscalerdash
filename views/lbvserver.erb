@@ -1,0 +1,90 @@
+<% label = {'UP' => 'success', 'DOWN' => 'danger', 'OUTOFSERVICE' => 'default'} %>
+<ul class="breadcrumb">
+  <li>
+    <a href="/netscalers">Netscalers</a> <span class="divider"></span>
+  </li>
+  <li>
+    <a href="/ns/<%= @netscaler %>"><%= @netscaler %></a> <span class="divider"></span>
+  </li>
+  <li class="active"><%= @vserver['lbvserver'][0]['name'] %></li>
+</ul>
+<div class="page-header">
+  <h1>Lb vserver<small> (<%= @vserver['lbvserver'][0]['name'] %>)</small></h1>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-condensed table-hover">
+          <caption><h3 class="pull-left">Info</h3></caption>
+          <tbody>
+          <tr><td>IP</td><td><%= @vserver['lbvserver'][0]['primaryipaddress'] %></td></tr>
+          <tr><td>Port</td><td><%= @vserver['lbvserver'][0]['primaryport'] %></td></tr>
+          <tr><td>Protocol</td><td><%= @vserver['lbvserver'][0]['type'] %></td></tr>
+          <tr><td>State</td><td><span class="label label-success"><%= @vserver['lbvserver'][0]['state'] %></span></td></tr>
+          <tr><td>Health</td><td><%= @vserver['lbvserver'][0]['vslbhealth'] %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-condensed table-hover">
+          <caption><h3 class="pull-left">Stats</h3></caption>
+          <tbody>
+          <tr><td>RequestRate</td><td><%= @vserver['lbvserver'][0]['requestsrate'] %></td></tr>
+          <tr><td>ResponseRate</td><td><%= @vserver['lbvserver'][0]['responsesrate'] %></td></tr>
+          <tr><td>CurClntConns</td><td><%= @vserver['lbvserver'][0]['curclntconnections'] %></td></tr>
+          <tr><td>CursrvrConns</td><td><%= @vserver['lbvserver'][0]['cursrvrconnections'] %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-condensed table-hover">
+          <caption><h3 class="pull-left">Bindings</h3></caption>
+          <tbody>
+          <tr><td>Responder Policies</td><td><%= @bindings['lbvserver_binding'][0]['lbvserver_responderpolicy_binding'].count if @bindings['lbvserver_binding'][0]['lbvserver_responderpolicy_binding'] %></td></tr>
+          <tr><td>Rewrite Policies</td><td><%= @bindings['lbvserver_binding'][0]['lbvserver_rewritepolicy_binding'].count if @bindings['lbvserver_binding'][0]['lbvserver_rewritepolicy_binding'] %></td></tr>
+          <tr><td>ContentSwitching Policies</td><td><%= @bindings['lbvserver_binding'][0]['lbvserver_csvserver_binding'].count if @bindings['lbvserver_binding'][0]['lbvserver_csvserver_binding'] %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <table class="table table-bordered table-rounded table-condensed table-responsive table-hover">
+      <caption><h3>Services</h3></caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Ip Address</th>
+          <th>Port</th>
+          <th>Type</th>
+          <th>Resp/s</th>
+          <th>Req/s</th>
+          <th>Connnections</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% @vserver['lbvserver'][0]['service'].sort_by{|s| s['name']}.each do |service| %>
+        <tr>
+          <td>
+            <%= service['name'] %>
+            <span class="label label-<%= label[service['state']] %>" style="float:right; text-decoration:blink"><%= service['state'] %></span>
+          </td>
+          <td><%= service['primaryipaddress'] %></td>
+          <td><%= service['primaryport'] %></td>
+          <td><%= service['servicetype'] %></td>
+          <td><%= service['responsesrate'] %></td>
+          <td><%= service['requestsrate'] %></td>
+          <td><%= service['cursrvrconnections'] %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

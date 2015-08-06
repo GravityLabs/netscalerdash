@@ -1,0 +1,103 @@
+<% label = {'UP' => 'success', 'DOWN' => 'danger', 'OUTOFSERVICE' => 'default'} %>
+<ul class="breadcrumb">
+  <li>
+    <a href="/netscalers">Netscalers</a> <span class="divider"></span>
+  </li>
+  <li>
+    <a href="/ns/<%= @netscaler %>"><%= @netscaler %></a> <span class="divider"></span>
+  </li>
+  <li class="active"><%= @vserver['csvserver'][0]['name'] %></li>
+</ul>
+<div class="page-header">
+  <h1>Cs vserver<small> (<%= @vserver['csvserver'][0]['name'] %>)</small></h1>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-condensed table-hover">
+          <caption><h3 class="pull-left">Info</h3></caption>
+          <tbody>
+            <tr><td>IP</td><td><%= @vserver['csvserver'][0]['primaryipaddress'] %></td></tr>
+            <tr><td>Port</td><td><%= @vserver['csvserver'][0]['primaryport'] %></td></tr>
+            <tr><td>Protocol</td><td><%= @vserver['csvserver'][0]['type'] %></td></tr>
+            <tr><td>State</td><td><span class="label label-success"><%= @vserver['csvserver'][0]['state'] %></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-condensed table-hover">
+          <caption><h3 class="pull-left">Stats</h3></caption>
+          <tbody>
+            <tr><td>RequestRate</td><td><%= @vserver['csvserver'][0]['requestsrate'] %></td></tr>
+            <tr><td>ResponseRate</td><td><%= @vserver['csvserver'][0]['responsesrate'] %></td></tr>
+            <!--<tr><td>RequestRate</td><td><%= @vserver['csvserver'][0]['responsesrate'] %></td></tr>
+            <tr><td>ResponseRate</td><td><%= @vserver['csvserver'][0]['cursrvrconnections'] %></td></tr>-->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered table-condensed table-hover">
+          <caption><h3 class="pull-left">Bindings</h3></caption>
+          <tbody>
+            <tr><td>Responder Policies</td><td><%= @bindings['csvserver_binding'][0]['csvserver_responderpolicy_binding'].count if @bindings['csvserver_binding'][0]['csvserver_responderpolicy_binding'] %></td></tr>
+            <tr><td>Rewrite Policies</td><td><%= @bindings['csvserver_binding'][0]['csvserver_rewritepolicy_binding'].count if @bindings['csvserver_binding'][0]['csvserver_rewritepolicy_binding'] %></td></tr>
+            <tr><td>ContentSwitching Policies</td><td><%= @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].count if @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'] %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="row"> <h2>Bindings</h2></div>
+    <div class="row">
+      <table class="table table-bordered table-condensed table-hover">
+        <caption><h3 class="pull-left">Responders</h3></caption>
+        <thead>
+          <tr><th>policyname</th><th>priority</th></tr>
+        </thead>
+        <tbody>
+        <% @bindings['csvserver_binding'][0]['csvserver_responderpolicy_binding'].each do |respol| %>
+          <tr><td><%= respol['policyname'] %></td><td><%= respol['priority'] %></td></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <table class="table table-bordered table-condensed table-hover">
+        <caption><h3 class="pull-left">Rewrites</h3></caption>
+        <thead>
+        <tr><th>policyname</th><th>priority</th></tr>
+        </thead>
+        <tbody>
+        <% @bindings['csvserver_binding'][0]['csvserver_rewritepolicy_binding'].each do |rewpol| %>
+          <tr><td><%= rewpol['policyname'] %></td><td><%= rewpol['priority'] %></td></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <table class="table table-bordered table-condensed table-hover">
+        <caption><h3 class="pull-left">CS Policies</h3></caption>
+        <thead>
+        <tr><th>policyname</th><th>priority</th></tr>
+        </thead>
+        <tbody>
+        <% @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].each do |cspol| %>
+          <tr><td><%= cspol['policyname'] %></td><td><%= cspol['priority'] %></td></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <%= @bindings['csvserver_responderpolicy_binding'] %>
+
+
+    <div class="row"><%= @bindings %></div>
+  </div>
+</div>
+

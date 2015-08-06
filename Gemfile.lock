@@ -9,13 +9,21 @@ GEM
       tzinfo (~> 1.1)
     i18n (0.7.0)
     json (1.8.2)
+    mime-types (2.4.3)
     minitest (5.5.1)
-    rack (1.6.0)
+    netrc (0.10.2)
+    netscaler (0.5.2)
+      json (~> 1.8.1)
+      rest-client (~> 1.7.2)
+    rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     shotgun (0.9)
       rack (>= 1.0)
-    simple-navigation (3.13.0)
+    simple-navigation (3.14.0)
       activesupport (>= 2.3.2)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -34,6 +42,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  netscaler (~> 0.5.2)
+  rack (= 1.5.2)
   shotgun
   sinatra (~> 1.4.5)
   sinatra-simple-navigation (~> 3.7.0)

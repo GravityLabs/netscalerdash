@@ -1,0 +1,94 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/netscalers">Netscalers</a> <span class="divider"></span>
+  </li>
+  <li>
+    <a href="/ns/<%= @netscaler %>"><%= @netscaler %></a> <span class="divider"></span>
+  </li>
+  <li ><a href="/ns/<%= @netscaler %>/<%= @type %>/<%= @bindings['lbvserver_binding'][0]['name'] %>"><%= @bindings['lbvserver_binding'][0]['name'] %></a></li>
+  <li class="active">bindings</li>
+</ul>
+<div class="page-header">
+  <h1>Bindings<small> (<%= @bindings['lbvserver_binding'][0]['name'] %>)</small></h1>
+</div>
+<div id="responder" class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered table-condensed table-hover">
+      <caption><h3 class="pull-left">Responder Policies</h3></caption>
+      <thead>
+        <tr>
+          <th>Reponder Policy</th>
+          <th>Responder Action</th>
+          <th>Rule</th>
+          <th>Priority</th>
+          <th>Hits</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @policies['responderpolicy'].each do |responder| %>
+        <tr>
+          <td><%= responder['responderpolicy'][0]['name'] %></td>
+          <td><%= responder['responderpolicy'][0]['action'] %></td>
+          <td><%= responder['responderpolicy'][0]['rule'] %></td>
+          <td><%=  %></td>
+          <td><%= responder['responderpolicy'][0]['hits'] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="responder" class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered table-condensed table-hover">
+      <caption><h3 class="pull-left">Rewrite Policies</h3></caption>
+      <thead>
+      <tr>
+        <th>Rewrite Policy</th>
+        <th>Rewrite Action</th>
+        <th>Rule</th>
+        <th>Priority</th>
+        <th>Hits</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @policies['rewritepolicy'].each do |responder| %>
+        <tr>
+          <td><%= responder['rewritepolicy'][0]['name'] %></td>
+          <td><%= responder['rewritepolicy'][0]['action'] %></td>
+          <td><%= responder['rewritepolicy'][0]['rule'] %></td>
+          <td><%=  %></td>
+          <td><%= responder['rewritepolicy'][0]['hits'] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="responder" class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered table-condensed table-hover">
+      <caption><h3 class="pull-left">CS Policies</h3></caption>
+      <thead>
+      <tr>
+        <th>CS Policy</th>
+        <th>Rule</th>
+        <th>Priority</th>
+        <th>Hits</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @policies['cspolicy'].each do |responder| %>
+        <tr>
+          <td><%= responder['cspolicy'][0]['policyname'] %></td>
+          <td><%= responder['cspolicy'][0]['rule'] %></td>
+          <td><%=  %></td>
+          <td><%= responder['cspolicy'][0]['pihits'] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
