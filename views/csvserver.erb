@@ -61,9 +61,11 @@
           <tr><th>policyname</th><th>priority</th></tr>
         </thead>
         <tbody>
-        <% @bindings['csvserver_binding'][0]['csvserver_responderpolicy_binding'].each do |respol| %>
+        <% unless @bindings['csvserver_binding'][0]['csvserver_responderpolicy_binding'].nil?
+             @bindings['csvserver_binding'][0]['csvserver_responderpolicy_binding'].each do |respol| %>
           <tr><td><%= respol['policyname'] %></td><td><%= respol['priority'] %></td></tr>
-        <% end %>
+          <% end
+        end %>
         </tbody>
       </table>
     </div>
@@ -74,9 +76,11 @@
         <tr><th>policyname</th><th>priority</th></tr>
         </thead>
         <tbody>
-        <% @bindings['csvserver_binding'][0]['csvserver_rewritepolicy_binding'].each do |rewpol| %>
+        <% unless @bindings['csvserver_binding'][0]['csvserver_rewritepolicy_binding'].nil?
+             @bindings['csvserver_binding'][0]['csvserver_rewritepolicy_binding'].each do |rewpol| %>
           <tr><td><%= rewpol['policyname'] %></td><td><%= rewpol['priority'] %></td></tr>
-        <% end %>
+          <% end
+          end %>
         </tbody>
       </table>
     </div>
@@ -87,9 +91,11 @@
         <tr><th>policyname</th><th>priority</th></tr>
         </thead>
         <tbody>
-        <% @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].each do |cspol| %>
+        <% unless @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].nil?
+             @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].each do |cspol| %>
           <tr><td><%= cspol['policyname'] %></td><td><%= cspol['priority'] %></td></tr>
-        <% end %>
+          <% end
+          end %>
         </tbody>
       </table>
     </div>
