@@ -60,6 +60,14 @@ class Netscalerdash
       erb :netscalers
     end
 
+    get '/ns/:netscaler' do
+      @ns = {}
+      ns = params[:netscaler]
+      @ns[ns] = {'lb' => @ns_connections[ns].lb.vserver.stat['lbvserver'],
+                 'cs' => @ns_connections[ns].cs.vserver.stat['csvserver']}
+      erb :netscalers
+    end
+
     get '/ns/:netscaler/:type/:vserver/bindings' do
       @netscaler = params[:netscaler]
       vserver = params[:vserver]

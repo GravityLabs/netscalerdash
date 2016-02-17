@@ -1,6 +1,15 @@
+<ul class="breadcrumb">
+  <li>
+    <a href="/netscalers">Netscalers</a> <span class="divider"></span>
+  </li>
+  <li>
+    <a href="/ns/<%= params[:netscaler] %>"><%= params[:netscaler] %></a> <span class="divider"></span>
+  </li>
+
+</ul>
 <h1>Netscalers</h1>
 <% @ns.keys.each do |ns| %>
-<h2><%= ns %></h2>
+<h2><a href="/ns/<%= ns %>"><%= ns %></a></h2>
   <table class="table table-bordered table-rounded table-condensed table-hover">
     <thead>
     <tr>
