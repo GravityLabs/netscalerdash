@@ -63,27 +63,25 @@
           <th>Ip Address</th>
           <th>Port</th>
           <th>Type</th>
-          <th>Resp/s</th>
-          <th>Req/s</th>
-          <th>Connnections</th>
+          <th>State</th>
         </tr>
       </thead>
       <tbody>
 
-        <% @vserver['lbvserver'][0]['service'].sort_by{|s| s['name']}.each do |service| %>
+        <% unless @bindings['lbvserver_binding'][0]['lbvserver_service_binding'].nil?
+             @bindings['lbvserver_binding'][0]['lbvserver_service_binding'].sort_by{|s| s['name']}.each do |service| %>
         <tr>
           <td>
             <%= service['name'] %>
-            <span class="label label-<%= label[service['state']] %>" style="float:right; text-decoration:blink"><%= service['state'] %></span>
+            <span class="label label-<%= label[service['curstate']] %>" style="float:right; text-decoration:blink"><%= service['curstate'] %></span>
           </td>
-          <td><%= service['primaryipaddress'] %></td>
-          <td><%= service['primaryport'] %></td>
+          <td><%= service['ipv46'] %></td>
+          <td><%= service['port'] %></td>
           <td><%= service['servicetype'] %></td>
-          <td><%= service['responsesrate'] %></td>
-          <td><%= service['requestsrate'] %></td>
-          <td><%= service['cursrvrconnections'] %></td>
+          <td><%= service['curstate'] %></td>
         </tr>
-        <% end %>
+        <% end
+        end %>
       </tbody>
     </table>
   </div>

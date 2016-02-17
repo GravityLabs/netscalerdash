@@ -90,7 +90,7 @@ class Netscalerdash
           end
         end
         threads.each(&:join)
-        $logger.info("Done with all")
+        $logger.info('Done with all')
 
       end
 

@@ -8,11 +8,11 @@ gem 'netscaler', '~> 0.5.2'
 gem 'puma'
 
 group :development do
-  #gem "rspec", "~> 2.8.0"
-  #gem "rdoc", "~> 3.12"
-  #gem "bundler"
-  #gem "jeweler", "~> 1.8.8"
-  #gem 'simplecov'
-  #gem 'simplecov-rcov'
+  gem "rspec", "~> 2.8.0"
+  gem "rdoc", "~> 3.12"
+  gem "bundler"
+  gem "jeweler", "~> 1.8.8"
+  gem 'simplecov'
+  gem 'simplecov-rcov'
   gem 'shotgun'
 end
