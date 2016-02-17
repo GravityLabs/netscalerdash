@@ -69,10 +69,10 @@
       <tbody>
 
         <% unless @bindings['lbvserver_binding'][0]['lbvserver_service_binding'].nil?
-             @bindings['lbvserver_binding'][0]['lbvserver_service_binding'].sort_by{|s| s['name']}.each do |service| %>
+             @bindings['lbvserver_binding'][0]['lbvserver_service_binding'].sort_by{|s| s['servicename']}.each do |service| %>
         <tr>
           <td>
-            <%= service['name'] %>
+            <%= service['servicename'] %>
             <span class="label label-<%= label[service['curstate']] %>" style="float:right; text-decoration:blink"><%= service['curstate'] %></span>
           </td>
           <td><%= service['ipv46'] %></td>
