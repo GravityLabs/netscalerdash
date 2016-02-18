@@ -98,7 +98,11 @@
             <td><%= cspol['policyname'] %></td>
             <td><%= cspol['priority'] %></td>
             <td><%= @cs_policies[cspol['policyname']]['rule'] unless @cs_policies[cspol['policyname']].nil? %></td>
+            <% if cspol['targetvserver'].nil? %>
+            <td><a href="/ns/<%= @netscaler %>/lb/<%= cspol['targetlbvserver'] %>"><%= cspol['targetlbvserver'] %></a></td>
+            <% elsif cspol['targetlbvserver'].nil? %>
             <td><a href="/ns/<%= @netscaler %>/lb/<%= cspol['targetvserver'] %>"><%= cspol['targetvserver'] %></a></td>
+            <% end %>
           </tr>
           <% end
           end %>
