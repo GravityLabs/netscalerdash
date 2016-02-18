@@ -45,8 +45,16 @@ class Netscalerdash
     end
 
     get '/' do
-      @message = 'Hello World!'
-      erb :home
+      # @message = 'Hello World!'
+      # erb :home
+
+      @ns = {}
+      @ns_connections.keys.each do |ns|
+        @ns[ns] = {'lb' => @ns_connections[ns].lb.vserver.stat['lbvserver'],
+                   'cs' => @ns_connections[ns].cs.vserver.stat['csvserver']}
+      end
+
+      erb :netscalers
     end
 
     get '/netscalers' do
@@ -66,6 +74,13 @@ class Netscalerdash
       @ns[ns] = {'lb' => @ns_connections[ns].lb.vserver.stat['lbvserver'],
                  'cs' => @ns_connections[ns].cs.vserver.stat['csvserver']}
       erb :netscalers
+    end
+
+    get '/ns/:netscaler/:service' do
+      @netscaler = params[:netscaler]
+      servicename = params[:service]
+      @service = @ns_connections[@netscaler].service.show serviceName: servicename
+      @service_bindings
     end
 
     get '/ns/:netscaler/:type/:vserver/bindings' do
@@ -102,27 +117,6 @@ class Netscalerdash
 
       end
 
-#       urls = %w(
-#   http://www.facebook.com/
-#   http://www.google.com/
-#   http://www.yahoo.com/
-# )
-#
-#       threads = []
-#       tags = []
-#       tags_mutex = Mutex.new
-#
-#       urls.each do |url|
-#         threads << Thread.new(url, tags) do |url, tags|
-#           $logger.info("getting #{url}")
-#           tag = Net::HTTP.get( URI.parse(url) )
-#           tags_mutex.synchronize { tags << tag }
-#           $logger.info("Done: #{url}")
-#         end
-#       end
-
-
-
       erb :bindings
     end
 
@@ -132,7 +126,13 @@ class Netscalerdash
       type = params[:type]
       @vserver = @ns_connections[@netscaler].send(type).vserver.stat name: vserver
       @bindings = @ns_connections[@netscaler].send(type).vserver.show_binding name: vserver
-
+      if type == 'cs'
+        all_cs_policies = @ns_connections[@netscaler].cs.policy.show
+        @cs_policies = {}
+        all_cs_policies['cspolicy'].each do |cs|
+          @cs_policies[cs['policyname']] = cs
+        end
+      end
       erb :"#{type}vserver"
     end
 

@@ -12,9 +12,9 @@
   <h1>Cs vserver<small> (<%= @vserver['csvserver'][0]['name'] %>)</small></h1>
 </div>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-12">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-4">
         <table class="table table-bordered table-condensed table-hover">
           <caption><h3 class="pull-left">Info</h3></caption>
           <tbody>
@@ -25,9 +25,7 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-4">
         <table class="table table-bordered table-condensed table-hover">
           <caption><h3 class="pull-left">Stats</h3></caption>
           <tbody>
@@ -38,9 +36,7 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-4">
         <table class="table table-bordered table-condensed table-hover">
           <caption><h3 class="pull-left">Bindings</h3></caption>
           <tbody>
@@ -52,7 +48,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-12">
     <div class="row"> <h2>Bindings</h2></div>
     <div class="row">
       <table class="table table-bordered table-condensed table-hover">
@@ -88,22 +84,29 @@
       <table class="table table-bordered table-condensed table-hover">
         <caption><h3 class="pull-left">CS Policies</h3></caption>
         <thead>
-        <tr><th>policyname</th><th>priority</th></tr>
+        <tr>
+          <th>policyname</th>
+          <th>priority</th>
+          <th>rule</th>
+          <th>targetvserver</th>
+        </tr>
         </thead>
         <tbody>
         <% unless @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].nil?
              @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].each do |cspol| %>
-          <tr><td><%= cspol['policyname'] %></td><td><%= cspol['priority'] %></td></tr>
+          <tr>
+            <td><%= cspol['policyname'] %></td>
+            <td><%= cspol['priority'] %></td>
+            <td><%= @cs_policies[cspol['policyname']]['rule'] %></td>
+            <td><a href="/ns/<%= @netscaler %>/lb/<%= cspol['targetlbvserver'] %>"><%= cspol['targetlbvserver'] %></a></td>
+          </tr>
           <% end
           end %>
         </tbody>
       </table>
     </div>
 
-    <%= @bindings['csvserver_responderpolicy_binding'] %>
 
-
-    <div class="row"><%= @bindings %></div>
   </div>
 </div>
 
