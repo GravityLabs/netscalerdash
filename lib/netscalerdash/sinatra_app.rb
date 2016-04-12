@@ -126,12 +126,22 @@ class Netscalerdash
       type = params[:type]
       @vserver = @ns_connections[@netscaler].send(type).vserver.stat name: vserver
       @bindings = @ns_connections[@netscaler].send(type).vserver.show_binding name: vserver
+
+
+      # TODO: Add cs_policy_label logic
+
+      # put in a if to check for cspolicylabel binding and add @cspol_bindings if present.
+      #  bindings["cspolicylabel_binding"][0]["cspolicylabel_cspolicy_binding"][0]
+      # => {"labelname"=>"cs_api_pollabel", "policyname"=>"cs_api-beacons_rul", "priority"=>"100", "targetvserver"=>"lb_beacons-main_8080", "gotopriorityexpression"=>"", "invoke"=>false, "labeltype"=>"", "invoke_labelname"=>""}
+
       if type == 'cs'
         all_cs_policies = @ns_connections[@netscaler].cs.policy.show
         @cs_policies = {}
         all_cs_policies['cspolicy'].each do |cs|
           @cs_policies[cs['policyname']] = cs
         end
+        # require 'pp'
+        # pp @cs_policies
       end
       erb :"#{type}vserver"
     end

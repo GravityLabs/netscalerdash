@@ -92,6 +92,17 @@
         </tr>
         </thead>
         <tbody>
+        <% unless @bindings['csvserver_binding'][0]['csvserver_lbvserver_binding'].nil?
+             @bindings['csvserver_binding'][0]['csvserver_lbvserver_binding'].each do |lbvserver| %>
+            <tr>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td><a href="/ns/<%= @netscaler %>/lb/<%= lbvserver['lbvserver'] %>"><%= lbvserver['lbvserver'] %></a></td>
+            </tr>
+          <% end
+             end %>
+
         <% unless @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].nil?
              @bindings['csvserver_binding'][0]['csvserver_cspolicy_binding'].each do |cspol| %>
           <tr>
